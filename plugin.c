@@ -1,13 +1,86 @@
 #include "prpl.h"
+#include "jrc_connection.h"
 #include "accountopt.h"
 #include "version.h"
 
+#define JRC_ID "jrc"
+
+#ifdef _WIN32
+#define sys_read  wpurple_read
+#define sys_write wpurple_write
+#define sys_close wpurple_close
+extern "C" {
+  int wpurple_close(int fd);
+  int wpurple_write(int fd, const void *buf, unsigned int size);
+  int wpurple_read(int fd, void *buf, unsigned int size);
+}
+#else
+#include <unistd.h>
+#define sys_read  read
+#define sys_write write
+#define sys_close close
+#endif
+
+const char JRC_DEFAULT_SERVER[] = "main.srv.telynz.uk";
+const int JRC_DEFAULT_PORT = 41528;
+
 static PurplePlugin *_jrc_protocol = NULL;
 
+static gboolean jrc_prpl_send_keepalive(gpointer data) {
+	PurpleConnection *gc = (PurpleConnection*)data;
+}
+
+
+// this is called some time after purple_proxy_connect and is a callback given to the same.
+// it's responsible for checking whether the connection has been successfully made (i.e. source is a valid file descriptor), sending the initial login data and setting up the event loop callbacks (purple_input_add and purple_timeout_add_seconds)
+static void jrc_prpl_connect_cb(gpointer data, gint source, const gchar * error_message) {
+	PurpleConnection *gc = (PurpleConnection*)data;
+	jrc_connection *jrc_conn = (jrc_connection *)purple_connection_get_protocol_data(gc);
+
+	PurpleAccount *acct = purple_connection_get_account(gc);
+}
+
+// called at the beginning of a login attempt - i.e. immediately after the checkbox is ticked in pidgin
+// this is responsible for setting up the data structures needed during a connection, and beginning
+// a connection with purple_proxy_connect.
 static void jrc_prpl_login(PurpleAccount * acct) {
+	PurpleConnection *gc = purple_account_get_connection(acct);
+
+	purple_connection_update_progress(gc, "Connecting", 0, STEPS);
+
+
+	const char *username = purple_account_get_username(acct);
+	const char *password = purple_account_get_password(acct);
+	const char *server = purple_account_get_string(acct, "server", "");
+	const int port = purple_account_get_int(acct, "port", 41528);
+
+	jrc_connection *jrc_conn = (jrc_connection*)g_new0(jrc_connection, 1);
+	jrc_conn->username = username;
+	jrc_conn->password = password;
+	jrc_conn->acct = acct;
+
+
+	purple_connection_set_protocol_data(gc, conn);
+
+	if (purple_proxy_connect(gc, acct, server, port, jrc_prpl_connect_cb, gc) == NULL) {
+		purple_connection_error_reason(gc, PURPLE_CONNECTION_ERROR_NETWORK_ERROR, sprintf("Unable to connect to %s:%d", server, port));
+	}
+	
 }
 
 static void jrc_prpl_close(PurpleConnection * gc) {
+	jrc_connection *jrc_conn = (jrc_connection *)purple_connection_get_protocol_data(gc);
+
+	if (jrc_conn->read_handle)
+		purple_input_remove(jrc_conn->read_handle);
+	
+	if (jrc_conn->write_handle)
+		purple_input_remove(jrc_conn->write_handle);
+
+	if (jrc_conn->fd)
+		sys_close(jrc_conn->fd);
+
+	purple_connection_set_protocol_data(gc, 0)
 }
 
 static const char *jrc_prpl_list_icon(PurpleAccount * acct, PurpleBuddy * buddy)
@@ -133,6 +206,12 @@ static void jrc_purple_init(PurplePlugin *plugin) {
 	PurpleAccountOption *option;
 
 	proto_info.user_splits = NULL;
+
+	option = purple_account_option_string_new("Server", "server", JRC_DEFAULT_SERVER);
+	proto_info.protocol_options = g_list_append(proto_info.protocol_options, option);
+
+	option = purple_account_option_int_new("Port", "port", JRC_DEFAULT_PORT);
+	proto_info.protocol_options = g_list_append(proto_info.protocol_options, option);
 }
 
 PURPLE_INIT_PLUGIN(jrc,jrc_purple_init,info)
