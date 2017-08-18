@@ -54,3 +54,11 @@ install: $(LIBNAME)
 clean:
 	-rm -f *.o
 	-rm -f $(LIBNAME)
+
+.PHONY: test
+
+test: test.out
+	./test.out
+
+test.out: $(wildcard jrc*.c) $(wildcard jrc*.h)
+	gcc -std=c99 -Wall -Wno-unused-function -o test.out $(wildcard jrc*.c)
