@@ -1,10 +1,14 @@
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 #include "jrc_util.h"
 
 char *jrc_str_copy(const char * const str) {
-	char *new = malloc(strlen(str)*sizeof(char));
+	//printf("making new string of length %lu\n", strlen(str));
+	char *new = malloc(strlen(str)*sizeof(char)+1);
+	//printf("copying %s to %p\n", str, new);
 	strcpy(new, str);
+	//printf("%p: %s\n", new, new);
 	return new;
 }
 

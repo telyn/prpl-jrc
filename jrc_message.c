@@ -1,6 +1,7 @@
 #include "jrc_message.h"
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
 bool jrc_msg_has_subtype(const char type, const char possibleSubtype, const int num_parts)  {
 	switch(type) {
@@ -45,16 +46,30 @@ void jrc_msg_shift_part(jrc_message *msg) {
 	msg->num_parts--;
 }
 
-jrc_message jrc_msg_parse(const char * const msgstr) {
-	jrc_message msg = {
+jrc_message jrc_msg_parse(char * msgstr) {
+	//printf("parsing a message\n");
+	if(msgstr == NULL) {
+	//	printf("msg was null.\n");
+		return (jrc_message){};
+	}
+	//printf("wasn't null.\n");
+	//printf("msg: %s\n", msgstr[1]);
+	jrc_message msg; /*= {
 		NULL,
 		'\0',
 		'\0',
 		'\0',
 		false,
 		0,
+		NULL,
 		NULL
-	};
+	};*/
+	msg.time = NULL;
+	msg.num_parts = 1;
+	msg.subsubtype = msg.subtype = msg.type = '\0';
+	msg.undo = false;
+	msg.parts = msg.orig_parts = NULL;
+	//printf("calling into jrc_str_copy\n");
 	char *new_str = jrc_str_copy(msgstr);
 
 	{ // count number of parts
@@ -67,6 +82,7 @@ jrc_message jrc_msg_parse(const char * const msgstr) {
 			idx++;
 			c = new_str[idx];
 		}
+		//printf("there are %d parts in this message\n", msg.num_parts);
 	}
 
 	{ // fill msg.parts
@@ -74,7 +90,9 @@ jrc_message jrc_msg_parse(const char * const msgstr) {
 		msg.parts = msg.orig_parts = malloc(malloc_parts*sizeof(char*));
 
 		for(int i=0; i < msg.num_parts; i++) {
+			//printf("getting part %d\n", i);
 			msg.parts[i] = strsep(&new_str, "\t");
+			//printf("part %d: %s\n", i, msg.parts[i]);
 		}
 	}
 

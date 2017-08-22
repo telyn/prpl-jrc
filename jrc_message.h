@@ -24,7 +24,7 @@ bool jrc_msg_has_separate_subtype(const char type, const char possibleSubType, c
 bool jrc_msg_has_subsubtype(const char type, const char subtype);
 
 void jrc_msg_debug(const jrc_message * const msg);
-jrc_message jrc_msg_parse(const char * const);
+jrc_message jrc_msg_parse(char * msg);
 
 void jrc_msg_destroy(jrc_message * msg);
 
