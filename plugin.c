@@ -89,11 +89,11 @@ static const char *jrc_prpl_list_icon(PurpleAccount * acct, PurpleBuddy * buddy)
 }
 
 static PurplePluginProtocolInfo proto_info = {
-	(PurpleProtocolOptions)0,			/* options */
-	NULL,			/* user_splits, initialized in jrc_prpl_init() */
-	NULL,			/* protocol_options, initialized in jrc_prpl_init() */
-	{			/* icon_spec, a PurpleBuddyIconSpec */
-		"png,gif,bmp,tiff,jpg",			/* format */
+	(PurpleProtocolOptions)0, /* options */
+	NULL,	/* user_splits, initialized in jrc_prpl_init() */
+	NULL,	/* protocol_options, initialized in jrc_prpl_init() */
+	{	/* icon_spec, a PurpleBuddyIconSpec */
+		"png,gif,bmp,tiff,jpg",	/* format */
 		1,			/* min_width */
 		1,			/* min_height */
 		4096,			/* max_width */
@@ -102,75 +102,75 @@ static PurplePluginProtocolInfo proto_info = {
 		PURPLE_ICON_SCALE_SEND,	/* scale_rules */
 	},
 	jrc_prpl_list_icon,	/* list_icon */
-	NULL,			/* list_emblem */
+	NULL,	/* list_emblem */
 	NULL,	/* status_text */
 	NULL,	/* tooltip_text */
 	NULL,	/* status_types */
-	NULL,			/* blist_node_menu */
+	NULL,	/* blist_node_menu */
 	NULL,	/* chat_info */
 	NULL,	/* chat_info_defaults */
 	jrc_prpl_login,		/* login */
 	jrc_prpl_close,		/* close */
-	NULL,		/* send_im */
-	NULL,			/* set_info */
+	NULL,	/* send_im */
+	NULL,	/* set_info */
 	NULL,	/* send_typing */
 	NULL,	/* get_info */
 	NULL,	/* set_status */
-	NULL,			/* set_idle */
-	NULL,			/* change_passwd */
+	NULL,	/* set_idle */
+	NULL,	/* change_passwd */
 	NULL,	/* add_buddy */
 	NULL,	/* add_buddies */
 	NULL,	/* remove_buddy */
 	NULL,	/* remove_buddies */
-	NULL,			/* add_permit */
+	NULL,	/* add_permit */
 	NULL,	/* add_deny */
-	NULL,			/* rem_permit */
+	NULL,	/* rem_permit */
 	NULL,	/* rem_deny */
-	NULL,			/* set_permit_deny */
+	NULL,	/* set_permit_deny */
 	NULL,	/* join_chat */
-	NULL,			/* reject_chat */
+	NULL,	/* reject_chat */
 	NULL,	/* get_chat_name */
 	NULL,	/* chat_invite */
-	NULL,			/* chat_leave */
-	NULL,			/* chat_whisper */
+	NULL,	/* chat_leave */
+	NULL,	/* chat_whisper */
 	NULL,	/* chat_send */
-	NULL,			/* keepalive */
-	NULL,			/* register_user */
-	NULL,			/* get_cb_info */
-	NULL,			/* get_cb_ajrc_y */
-	NULL,			/* alias_buddy */
+	NULL,	/* keepalive */
+	NULL,	/* register_user */
+	NULL,	/* get_cb_info */
+	NULL,	/* get_cb_ajrc_y */
+	NULL,	/* alias_buddy */
 	NULL,	/* group_buddy */
 	NULL,	/* rename_group */
-	NULL,			/* buddy_free */
+	NULL,	/* buddy_free */
 	NULL,	/* convo_closed */
 	purple_normalize_nocase,	/* normalize */
 	NULL,	/* set_buddy_icon */
-	NULL,			/* remove_group */
-	NULL,			/* get_cb_real_name */
-	NULL,			/* set_chat_topic */
-	NULL,			/* find_blist_chat */
-	NULL,			/* roomlist_get_list */
-	NULL,			/* roomlist_cancel */
-	NULL,			/* roomlist_expand_category */
+	NULL,	/* remove_group */
+	NULL,	/* get_cb_real_name */
+	NULL,	/* set_chat_topic */
+	NULL,	/* find_blist_chat */
+	NULL,	/* roomlist_get_list */
+	NULL,	/* roomlist_cancel */
+	NULL,	/* roomlist_expand_category */
 	NULL,	/* can_receive_file */
 	NULL,	/* send_file */
-	NULL,			/* new_xfer */
+	NULL,	/* new_xfer */
 	NULL,	/* offline_message */
-	NULL,			/* whiteboard_prpl_ops */
-	NULL,			/* send_raw */
-	NULL,			/* roomlist_room_serialize */
-	NULL,			/* unregister_user */
-	NULL,			/* send_attention */
-	NULL,			/* get_attention_types */
+	NULL,	/* whiteboard_prpl_ops */
+	NULL,	/* send_raw */
+	NULL,	/* roomlist_room_serialize */
+	NULL,	/* unregister_user */
+	NULL,	/* send_attention */
+	NULL,	/* get_attention_types */
 	sizeof(PurplePluginProtocolInfo),	/* struct_size */
-	NULL,			/* get_account_text_table */
-	NULL,			/* initiate_media */
-	NULL,			/* get_media_caps */
-	NULL,			/* get_moods */
-	NULL,			/* set_public_alias */
-	NULL,			/* get_public_alias */
-	NULL,			/* add_buddy_with_invite */
-	NULL			/* add_buddies_with_invite */
+	NULL,	/* get_account_text_table */
+	NULL,	/* initiate_media */
+	NULL,	/* get_media_caps */
+	NULL,	/* get_moods */
+	NULL,	/* set_public_alias */
+	NULL,	/* get_public_alias */
+	NULL,	/* add_buddy_with_invite */
+	NULL	/* add_buddies_with_invite */
 };
 
 static PurplePluginInfo info = {
