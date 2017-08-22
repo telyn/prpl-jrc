@@ -1,0 +1,6 @@
+language: c
+install: 
+        - sudo apt-get -qq update
+        - sudo apt-get -qq install libpurple-dev
+script:
+        - make test
