@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/telyn/prpl-jrc.svg?branch=master)](https://travis-ci.org/telyn/prpl-jrc)
+
 What?
 =====
 
