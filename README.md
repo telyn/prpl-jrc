@@ -17,7 +17,7 @@ And finally to practice writing some C.
 Can I Test It?
 ==============
 
-Assuming the project's got to that point, sure. There's a server at main.srv.telynz.uk:41528. If you want something to compare it to, download Greenreaper's [JRNet](http://greenreaper.co.uk/jrnet.zip) and [the update](http://greenreaper.co.uk/jrnetupdate.zip)
+Assuming the project's got to that point, sure. There's a server at jrc.telynz.uk:41528. If you want something to compare it to, download Greenreaper's [JRNet](http://greenreaper.co.uk/jrnet.zip) and [the update](http://greenreaper.co.uk/jrnetupdate.zip)
 
 Does It Work On (your platform of choice here)
 ==============================================
